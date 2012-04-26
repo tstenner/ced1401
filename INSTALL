@@ -1,0 +1,18 @@
+
+1) Download repository
+   git clone http://pub.ist.ac.at/~schloegl/src/ced1401/.git 
+
+2) Make 
+    make -C ced1401
+
+3a) Load kernel module 
+   CEDPATH=`pwd`/ced1401;
+   sudo /sbin/insmod $CEDPATH/cedusb.ko   
+
+ b) Test kernel module 
+   lsmod |grep ced
+
+ c) unload kernel module 
+   sudo rmmod cedusb
+
+
