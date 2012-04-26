@@ -1,6 +1,7 @@
 /***********************************************************************************
  CED1401 usb driver. This basic loading is based on the usb-skeleton.c code that is:
  Copyright (C) 2001-2004 Greg Kroah-Hartman (greg@kroah.com)
+ Copyright (C) 2012 Alois Schloegl <alois.schloegl@ist.ac.at>
  There is not a great deal of the skeleton left.
 
  All the remainder dealing specifically with the CED1401 is based on drivers written
@@ -90,6 +91,14 @@ synchronous non-Urb based transfers.
 #include <linux/mm.h>
 #include <linux/highmem.h>
 #include <linux/version.h>
+#if ( LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,35) )
+  #include <linux/init.h>
+  #include <linux/slab.h>
+  #include <linux/module.h>
+  #include <linux/kref.h>
+  #include <linux/uaccess.h>
+#endif
+
 
 #include "usb1401.h"
 
@@ -124,10 +133,11 @@ The cause for these errors is that the driver makes use of the functions usb_buf
       usb_buffer_free()  is renamed to usb_free_coherent()
    This is needed on Debian 2.6.32-5-amd64
 */
-#define usb_alloc_coherent usb_buffer_alloc
-#define usb_free_coherent  usb_buffer_free
-#define noop_llseek NULL
-//#endif
+#if ( LINUX_VERSION_CODE < KERNEL_VERSION(2,6,35) )
+  #define usb_alloc_coherent usb_buffer_alloc
+  #define usb_free_coherent  usb_buffer_free
+  #define noop_llseek NULL
+#endif
 
 static struct usb_driver ced_driver;
 
