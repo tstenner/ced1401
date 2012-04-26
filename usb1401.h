@@ -19,7 +19,7 @@
 */
 #ifndef __USB1401_H__
 #define __USB1401_H__
-#include "USE1401.H"
+#include "use1401.h"
 #include "ced_ioctl.h"
 
 #ifndef UINT
