@@ -194,6 +194,19 @@ typedef struct TGetTxBlock              /* used for U14_GetTransfer results */
    short    used;                       /* number of used entries */
    TXENTRY  entries[GET_TX_MAXENTRIES]; /* Array of mapped block info */
 } TGET_TX_BLOCK;
+
+/// The same thing with a single entry, used in Linux for U14_GetTransfer results
+typedef struct TGetTxBlock1             /* used for U14_GetTransfer results */
+{                                               /* matches structure in VXD */
+   U14LONG size;
+   U14LONG linear;
+   short   seg;
+   short   reserved;
+   short   avail;                      /* number of available entries */
+   short   used;                       /* number of used entries */
+   TXENTRY entries[1];                 /* Array of mapped block info */
+} TGET_TX_BLOCK1;
+
 #endif
 
 #ifdef __cplusplus
