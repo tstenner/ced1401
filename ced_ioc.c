@@ -708,7 +708,7 @@ int ced_clear_area(struct ced_data *ced, int area)
 				for (np = 0; np < n_pages; ++np) {
 					if (pages[np]) {
 						SetPageDirty(pages[np]);
-						page_cache_release(pages[np]);
+						put_page(pages[np]);
 					}
 				}
 
