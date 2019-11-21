@@ -1382,13 +1382,11 @@ static long ced_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 	/* specific command.						   */
 	if (_IOC_DIR(cmd) & _IOC_READ) /* read from point of view of user... */
 		/* is kernel write */
-		err = !access_ok(VERIFY_WRITE,
-				 (void __user *)arg, _IOC_SIZE(cmd));
+		err = !access_ok((void __user *)arg, _IOC_SIZE(cmd));
 	else if (_IOC_DIR(cmd) & _IOC_WRITE) /* and write from point of */
 					     /* view of user...         */
 		/* is kernel read */
-		err = !access_ok(VERIFY_READ,
-				 (void __user *)arg, _IOC_SIZE(cmd));
+		err = !access_ok((void __user *)arg, _IOC_SIZE(cmd));
 	if (err)
 		return -EFAULT;
 	switch (_IOC_NR(cmd)) {

@@ -749,7 +749,7 @@ static int ced_set_area(struct ced_data *ced, int area, char __user *buf,
 		return ret;	/*  ...we cannot use this area */
 
 	/* if we cannot access the memory... */
-	if (!access_ok(VERIFY_WRITE, buf, length))
+	if (!access_ok(buf, length))
 		return -EFAULT;	/*  ...then we are done */
 
 	/*  Now allocate space to hold the page pointer and */
